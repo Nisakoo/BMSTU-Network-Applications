@@ -1,8 +1,29 @@
-class OilProductionAppState {
+"use strict";
+
+const extractOil = (current, extraced) => current + extraced;
+const spillOil = (current, spilled) => current - spilled;
+const findNewOilFields = (current, oilFieldsCount) => current * oilFieldsCount;
+const deleteOilFields = (current, oilFieldsCount) =>
+  Math.round(current / oilFieldsCount);
+const findSalesTax = (profit, tax) => Math.round(profit * (1 - tax / 100));
+const lobbyForLaw = (profit) => Math.round(2 * Math.random() * profit);
+
+class OilProductionApp {
   constructor(callback) {
     this.tokens = [];
     this.currentNumber = "";
     this.callback = callback;
+
+    this.operations = {
+      "+": { prec: 1, isBinary: true },
+      "-": { prec: 1, isBinary: true },
+      "×": { prec: 2, isBinary: true },
+      "÷": { prec: 2, isBinary: true },
+      "%": { prec: 2, isBinary: true },
+      "±": { prec: 3, isBinary: false },
+    };
+
+    this.onUpdate();
   }
 
   addDigit(digit) {
@@ -18,7 +39,8 @@ class OilProductionAppState {
 
     switch (operation) {
       case "=":
-        console.log(this.tokens);
+        this.currentNumber = String(this.getProfitFromOilSale(this.buildRPN()));
+        this.tokens = [];
         break;
       case "C":
         this.clear();
@@ -29,6 +51,80 @@ class OilProductionAppState {
     }
 
     this.onUpdate();
+  }
+
+  buildRPN() {
+    const output = [];
+    const stack = [];
+
+    for (const token of this.tokens) {
+      if (!isNaN(parseFloat(token))) {
+        output.push(parseFloat(token));
+      } else if (this.operations[token]) {
+        while (
+          stack.length > 0 &&
+          this.operations[stack[stack.length - 1]].prec >=
+            this.operations[token].prec
+        ) {
+          output.push(stack.pop());
+        }
+
+        stack.push(token);
+      }
+    }
+
+    while (stack.length > 0) {
+      output.push(stack.pop());
+    }
+
+    return output;
+  }
+
+  getProfitFromOilSale(rpn) {
+    const stack = [];
+
+    for (const token of rpn) {
+      if (Number.isFinite(token)) {
+        stack.push(token);
+      } else if (this.operations[token]) {
+        let right = stack.pop();
+        let left = 0;
+
+        if (this.operations[token].isBinary) {
+          left = stack.pop();
+        }
+
+        switch (token) {
+          case "+":
+            stack.push(extractOil(left, right));
+            break;
+          case "-":
+            stack.push(spillOil(left, right));
+            break;
+          case "×":
+            stack.push(findNewOilFields(left, right));
+            break;
+          case "÷":
+            stack.push(deleteOilFields(left, right));
+            break;
+          case "%":
+            stack.push(findSalesTax(left, right));
+            break;
+          case "±":
+            stack.push(lobbyForLaw(right));
+            break;
+          default:
+            stack.push(extractOil(left, right));
+            break;
+        }
+      }
+    }
+
+    if (stack.length > 0) {
+      return stack[0];
+    }
+
+    return 0;
   }
 
   clear() {
@@ -61,9 +157,18 @@ class Button {
     return this;
   }
 
+  withTooltip(text) {
+    this.tooltipText = text;
+    return this;
+  }
+
   render(containerElement) {
     const buttonElement = document.createElement("button");
     buttonElement.textContent = this.label;
+
+    if (this.tooltipText) {
+      buttonElement.title = this.tooltipText;
+    }
 
     if (this.cssClasses && this.cssClasses.length > 0) {
       buttonElement.classList.add(...this.cssClasses);
@@ -108,38 +213,54 @@ const createResultBoxCallback = () => {
   };
 };
 
-const appState = new OilProductionAppState(createResultBoxCallback());
+const appState = new OilProductionApp(createResultBoxCallback());
 
 const oilProductionApp = {
   buttons: [
     // 1-й ряд
-    createSecondaryButton("C", () => appState.addOperation("C")),
-    createSecondaryButton("±", () => appState.addOperation("±")),
-    createSecondaryButton("%", () => appState.addOperation("%")),
-    createPrimaryButton("÷", () => appState.addOperation("÷")),
+    createSecondaryButton("C", () => appState.addOperation("C")).withTooltip(
+      "Очистить",
+    ),
+    createSecondaryButton("±", () => appState.addOperation("±")).withTooltip(
+      "Лоббировать закон",
+    ),
+    createSecondaryButton("%", () => appState.addOperation("%")).withTooltip(
+      "Найти налог от продажи",
+    ),
+    createPrimaryButton("÷", () => appState.addOperation("÷")).withTooltip(
+      "Истощить месторождения нефти",
+    ),
 
     // 2-й ряд
     createButton("7", () => appState.addDigit("7")),
     createButton("8", () => appState.addDigit("8")),
     createButton("9", () => appState.addDigit("9")),
-    createPrimaryButton("×", () => appState.addOperation("×")),
+    createPrimaryButton("×", () => appState.addOperation("×")).withTooltip(
+      "Разведать месторождения нефти",
+    ),
 
     // 3-й ряд
     createButton("4", () => appState.addDigit("4")),
     createButton("5", () => appState.addDigit("5")),
     createButton("6", () => appState.addDigit("6")),
-    createPrimaryButton("-", () => appState.addOperation("-")),
+    createPrimaryButton("-", () => appState.addOperation("-")).withTooltip(
+      "Пролить нефть",
+    ),
 
     // 4-й ряд
     createButton("1", () => appState.addDigit("1")),
     createButton("2", () => appState.addDigit("2")),
     createButton("3", () => appState.addDigit("3")),
-    createPrimaryButton("+", () => appState.addOperation("+")),
+    createPrimaryButton("+", () => appState.addOperation("+")).withTooltip(
+      "Добыть нефть",
+    ),
 
     // 5-й ряд
     createButton("0", () => appState.addDigit("0")),
     createButton(".", () => appState.addDigit(".")),
-    createAccentButton("=", () => appState.addOperation("=")),
+    createAccentButton("=", () => appState.addOperation("=")).withTooltip(
+      "Посчитать прибыль",
+    ),
   ],
 };
 
