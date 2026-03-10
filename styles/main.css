@@ -24,6 +24,7 @@ body {
 }
 
 .result {
+    width: 100%;
     font-family: "JetBrains Mono", monospace;
     font-weight: 500;
     font-size: 36px;
@@ -33,9 +34,13 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .container {
+    box-sizing: border-box;
+    max-width: 267px;
     margin: auto;
     margin-top: 10%;
     padding: 16px;
