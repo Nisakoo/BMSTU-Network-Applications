@@ -1,6 +1,6 @@
 "use strict";
 
-const extractOil = (current, extraced) => current + extraced;
+const extractOil = (current, extracted) => current + extracted;
 const spillOil = (current, spilled) => current - spilled;
 const findNewOilFields = (current, oilFieldsCount) => current * oilFieldsCount;
 const deleteOilFields = (current, oilFieldsCount) =>
@@ -20,7 +20,7 @@ class OilProductionApp {
       "×": { prec: 2, isBinary: true },
       "÷": { prec: 2, isBinary: true },
       "%": { prec: 2, isBinary: true },
-      "±": { prec: 3, isBinary: false },
+      "?": { prec: 3, isBinary: false },
     };
 
     this.onUpdate();
@@ -110,7 +110,7 @@ class OilProductionApp {
           case "%":
             stack.push(findSalesTax(left, right));
             break;
-          case "±":
+          case "?":
             stack.push(lobbyForLaw(right));
             break;
           default:
@@ -204,7 +204,11 @@ const createAccentButton = (label, handler) => {
     .withCSSClasses(["btn", "btn-long", "accent"]);
 };
 
-const logPress = (val) => console.log(`Нажато: ${val}`);
+const createLobbyForLawButton = (label, handler) => {
+  return new Button(handler)
+    .withLabel(label)
+    .withCSSClasses(["btn", "btn-lobby-for-law", "primary"]);
+};
 
 const createResultBoxCallback = () => {
   const resultBox = document.getElementById("result-box");
@@ -213,54 +217,59 @@ const createResultBoxCallback = () => {
   };
 };
 
-const appState = new OilProductionApp(createResultBoxCallback());
+const app = new OilProductionApp(createResultBoxCallback());
 
-const oilProductionApp = {
+const oilProductionInterface = {
   buttons: [
     // 1-й ряд
-    createSecondaryButton("C", () => appState.addOperation("C")).withTooltip(
+    createSecondaryButton("C", () => app.addOperation("C")).withTooltip(
       "Очистить",
     ),
-    createSecondaryButton("±", () => appState.addOperation("±")).withTooltip(
-      "Лоббировать закон",
+    createSecondaryButton("000", () => app.addDigit("000")).withTooltip(
+      "Увеличить поставки",
     ),
-    createSecondaryButton("%", () => appState.addOperation("%")).withTooltip(
+    createSecondaryButton("%", () => app.addOperation("%")).withTooltip(
       "Найти налог от продажи",
     ),
-    createPrimaryButton("÷", () => appState.addOperation("÷")).withTooltip(
+    createPrimaryButton("÷", () => app.addOperation("÷")).withTooltip(
       "Истощить месторождения нефти",
     ),
 
     // 2-й ряд
-    createButton("7", () => appState.addDigit("7")),
-    createButton("8", () => appState.addDigit("8")),
-    createButton("9", () => appState.addDigit("9")),
-    createPrimaryButton("×", () => appState.addOperation("×")).withTooltip(
+    createButton("7", () => app.addDigit("7")),
+    createButton("8", () => app.addDigit("8")),
+    createButton("9", () => app.addDigit("9")),
+    createPrimaryButton("×", () => app.addOperation("×")).withTooltip(
       "Разведать месторождения нефти",
     ),
 
     // 3-й ряд
-    createButton("4", () => appState.addDigit("4")),
-    createButton("5", () => appState.addDigit("5")),
-    createButton("6", () => appState.addDigit("6")),
-    createPrimaryButton("-", () => appState.addOperation("-")).withTooltip(
+    createButton("4", () => app.addDigit("4")),
+    createButton("5", () => app.addDigit("5")),
+    createButton("6", () => app.addDigit("6")),
+    createPrimaryButton("-", () => app.addOperation("-")).withTooltip(
       "Пролить нефть",
     ),
 
     // 4-й ряд
-    createButton("1", () => appState.addDigit("1")),
-    createButton("2", () => appState.addDigit("2")),
-    createButton("3", () => appState.addDigit("3")),
-    createPrimaryButton("+", () => appState.addOperation("+")).withTooltip(
+    createButton("1", () => app.addDigit("1")),
+    createButton("2", () => app.addDigit("2")),
+    createButton("3", () => app.addDigit("3")),
+    createPrimaryButton("+", () => app.addOperation("+")).withTooltip(
       "Добыть нефть",
     ),
 
     // 5-й ряд
-    createButton("0", () => appState.addDigit("0")),
-    createButton(".", () => appState.addDigit(".")),
-    createAccentButton("=", () => appState.addOperation("=")).withTooltip(
+    createButton("0", () => app.addDigit("0")),
+    createButton(".", () => app.addDigit(".")),
+    createAccentButton("=", () => app.addOperation("=")).withTooltip(
       "Посчитать прибыль",
     ),
+
+    // Индивидуальные кнопки
+    createLobbyForLawButton("Лоббировать", () =>
+      app.addOperation("?"),
+    ).withTooltip("Лоббировать закон"),
   ],
 };
 
@@ -282,4 +291,4 @@ const createModeSwitcher = () => {
 };
 
 createModeSwitcher();
-viewButtons(oilProductionApp.buttons);
+viewButtons(oilProductionInterface.buttons);

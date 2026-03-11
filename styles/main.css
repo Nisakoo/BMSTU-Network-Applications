@@ -92,6 +92,10 @@ body {
     grid-column: span 2;
 }
 
+.btn-lobby-for-law {
+    grid-column: span 4;
+}
+
 .primary {
     background-color: var(--primary-color);
     color: white;
