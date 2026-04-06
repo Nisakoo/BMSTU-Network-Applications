@@ -1,0 +1,23 @@
+{
+  "name": "bmstu-network-applications",
+  "version": "1.0.0",
+  "description": "product page layout",
+  "homepage": "https://github.com/Nisakoo/BMSTU-Network-Applications#readme",
+  "bugs": {
+    "url": "https://github.com/Nisakoo/BMSTU-Network-Applications/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nisakoo/BMSTU-Network-Applications.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8"
+  }
+}
