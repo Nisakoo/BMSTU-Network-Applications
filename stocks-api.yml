@@ -1,0 +1,125 @@
+opencollection: 1.0.0
+info:
+  name: stocks-api
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ''
+      port: ''
+      auth:
+        username: ''
+        password: ''
+      bypassProxy: ''
+  environments:
+    - name: local
+      variables:
+        - name: baseUrl
+          value: http://localhost:3000
+items:
+  - info:
+      name: all stocks
+      type: http
+      seq: 2
+    http:
+      method: GET
+      url: '{{baseUrl}}/stocks'
+      auth: inherit
+    settings:
+      encodeUrl: true
+      timeout: 0
+      followRedirects: true
+      maxRedirects: 5
+  - info:
+      name: stocks filtered by title
+      type: http
+      seq: 3
+    http:
+      method: GET
+      url: '{{baseUrl}}/stocks?title=Акция 1'
+      params:
+        - name: title
+          value: Акция 1
+          type: query
+      auth: inherit
+    settings:
+      encodeUrl: true
+      timeout: 0
+      followRedirects: true
+      maxRedirects: 5
+  - info:
+      name: create stock
+      type: http
+      seq: 4
+    http:
+      method: POST
+      url: '{{baseUrl}}/stocks'
+      body:
+        type: json
+        data: |-
+          {
+            "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
+            "title": "Новая акция",
+            "text": "Описание новой акции"
+          }
+      auth: inherit
+    settings:
+      encodeUrl: true
+      timeout: 0
+      followRedirects: true
+      maxRedirects: 5
+  - info:
+      name: get stock by id
+      type: http
+      seq: 5
+    http:
+      method: GET
+      url: '{{baseUrl}}/stocks/1'
+      auth: inherit
+    settings:
+      encodeUrl: true
+      timeout: 0
+      followRedirects: true
+      maxRedirects: 5
+  - info:
+      name: update stock
+      type: http
+      seq: 6
+    http:
+      method: PATCH
+      url: '{{baseUrl}}/stocks/2'
+      body:
+        type: json
+        data: |-
+          {
+            "title": "Обновленное название",
+            "text": "Обновленное описание"
+          }
+      auth: inherit
+    settings:
+      encodeUrl: true
+      timeout: 0
+      followRedirects: true
+      maxRedirects: 5
+  - info:
+      name: delete stock
+      type: http
+      seq: 7
+    http:
+      method: DELETE
+      url: '{{baseUrl}}/stocks/3'
+      auth: inherit
+    settings:
+      encodeUrl: true
+      timeout: 0
+      followRedirects: true
+      maxRedirects: 5
+bundled: true
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git
+    exportedAt: '2026-04-07T12:14:58.414Z'
+    exportedUsing: Bruno
