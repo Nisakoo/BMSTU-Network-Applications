@@ -6,7 +6,9 @@ const findNewOilFields = (current, oilFieldsCount) => current * oilFieldsCount;
 const deleteOilFields = (current, oilFieldsCount) =>
   Math.round(current / oilFieldsCount);
 const findSalesTax = (profit, tax) => Math.round(profit * (1 - tax / 100));
-const lobbyForLaw = (profit) => Math.round(2 * Math.random() * profit);
+
+const calcPipelineChemicalization = (current) =>
+  Math.round(2 * Math.random() * current);
 
 class OilProductionApp {
   constructor(callback) {
@@ -111,7 +113,7 @@ class OilProductionApp {
             stack.push(findSalesTax(left, right));
             break;
           case "?":
-            stack.push(lobbyForLaw(right));
+            stack.push(calcPipelineChemicalization(right));
             break;
           default:
             stack.push(extractOil(left, right));
@@ -187,15 +189,11 @@ const createButton = (label, handler) => {
 };
 
 const createSecondaryButton = (label, handler) => {
-  return new Button(handler)
-    .withLabel(label)
-    .withCSSClasses(["btn", "secondary"]);
+  return new Button(handler).withLabel(label).withCSSClasses(["btn"]);
 };
 
 const createPrimaryButton = (label, handler) => {
-  return new Button(handler)
-    .withLabel(label)
-    .withCSSClasses(["btn", "primary"]);
+  return new Button(handler).withLabel(label).withCSSClasses(["btn"]);
 };
 
 const createAccentButton = (label, handler) => {
@@ -204,10 +202,10 @@ const createAccentButton = (label, handler) => {
     .withCSSClasses(["btn", "btn-long", "accent"]);
 };
 
-const createLobbyForLawButton = (label, handler) => {
+const createChemButton = (label, handler) => {
   return new Button(handler)
     .withLabel(label)
-    .withCSSClasses(["btn", "btn-lobby-for-law", "primary"]);
+    .withCSSClasses(["btn", "btn-chem"]);
 };
 
 const createResultBoxCallback = () => {
@@ -221,7 +219,6 @@ const app = new OilProductionApp(createResultBoxCallback());
 
 const oilProductionInterface = {
   buttons: [
-    // 1-й ряд
     createSecondaryButton("C", () => app.addOperation("C")).withTooltip(
       "Очистить",
     ),
@@ -232,18 +229,16 @@ const oilProductionInterface = {
       "Найти налог от продажи",
     ),
     createPrimaryButton("÷", () => app.addOperation("÷")).withTooltip(
-      "Истощить месторождения нефти",
+      "Истощить месторождения",
     ),
 
-    // 2-й ряд
     createButton("7", () => app.addDigit("7")),
     createButton("8", () => app.addDigit("8")),
     createButton("9", () => app.addDigit("9")),
     createPrimaryButton("×", () => app.addOperation("×")).withTooltip(
-      "Разведать месторождения нефти",
+      "Разведать месторождения",
     ),
 
-    // 3-й ряд
     createButton("4", () => app.addDigit("4")),
     createButton("5", () => app.addDigit("5")),
     createButton("6", () => app.addDigit("6")),
@@ -251,7 +246,6 @@ const oilProductionInterface = {
       "Пролить нефть",
     ),
 
-    // 4-й ряд
     createButton("1", () => app.addDigit("1")),
     createButton("2", () => app.addDigit("2")),
     createButton("3", () => app.addDigit("3")),
@@ -259,17 +253,15 @@ const oilProductionInterface = {
       "Добыть нефть",
     ),
 
-    // 5-й ряд
     createButton("0", () => app.addDigit("0")),
     createButton(".", () => app.addDigit(".")),
     createAccentButton("=", () => app.addOperation("=")).withTooltip(
-      "Посчитать прибыль",
+      "Посчитать результат",
     ),
 
-    // Индивидуальные кнопки
-    createLobbyForLawButton("Лоббировать", () =>
-      app.addOperation("?"),
-    ).withTooltip("Лоббировать закон"),
+    createChemButton("Химизация", () => app.addOperation("?")).withTooltip(
+      "Расчет для химизации нефтепровода",
+    ),
   ],
 };
 
