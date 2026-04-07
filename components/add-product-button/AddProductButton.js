@@ -1,4 +1,4 @@
-export class AddButton {
+export class AddProductButton {
   constructor(parent) {
     this.parent = parent;
   }

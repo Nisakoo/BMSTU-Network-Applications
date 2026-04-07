@@ -1,4 +1,4 @@
-export class NavbarComponent {
+export class HeaderNavbar {
   constructor(parent) {
     this.parent = parent;
   }

@@ -1,8 +1,8 @@
 import { MainPage } from "./pages/main/index.js";
-import { NavbarComponent } from "./components/navbar/index.js";
+import { HeaderNavbar } from "./components/header-navbar/HeaderNavbar.js";
 
 const navbar = document.getElementById("navbar");
-const navbarComponent = new NavbarComponent(navbar);
+const navbarComponent = new HeaderNavbar(navbar);
 navbarComponent.render({
   title: "Разработка месторождений",
 });

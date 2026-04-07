@@ -1,4 +1,4 @@
-export class BackButtonComponent {
+export class NavigationBackButton {
   constructor(parent) {
     this.parent = parent;
   }

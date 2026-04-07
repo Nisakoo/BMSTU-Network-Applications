@@ -1,7 +1,7 @@
 import { ProductPage } from "../product/index.js";
-import { ProductCardComponent } from "../../components/product-card/index.js";
-import { AddButton } from "../../components/add-button/index.js";
-import { SearchComponent } from "../../components/search/index.js";
+import { ProductCard } from "../../components/product-card/ProductCard.js";
+import { AddProductButton } from "../../components/add-product-button/AddProductButton.js";
+import { ProductSearch } from "../../components/product-search/ProductSearch.js";
 
 export class MainPage {
   constructor(parent) {
@@ -108,7 +108,7 @@ export class MainPage {
 
     this.state.push(firstCard);
 
-    const productCard = new ProductCardComponent(this.cardContainer);
+    const productCard = new ProductCard(this.cardContainer);
     productCard.render(
       firstCard,
       this.clickCard.bind(this),
@@ -127,11 +127,11 @@ export class MainPage {
   renderCards(cards) {
     this.cardContainer.innerHTML = "";
 
-    const addButton = new AddButton(this.cardContainer);
+    const addButton = new AddProductButton(this.cardContainer);
     addButton.render(this.addCard.bind(this));
 
     cards.forEach((item) => {
-      const productCard = new ProductCardComponent(this.cardContainer);
+      const productCard = new ProductCard(this.cardContainer);
       productCard.render(
         item,
         this.clickCard.bind(this),
@@ -145,7 +145,7 @@ export class MainPage {
     const html = this.getHTML();
     this.parent.insertAdjacentHTML("beforeend", html);
 
-    const search = new SearchComponent(this.searchContainer);
+    const search = new ProductSearch(this.searchContainer);
     search.render(this.filterCards.bind(this));
 
     this.renderCards(this.state);

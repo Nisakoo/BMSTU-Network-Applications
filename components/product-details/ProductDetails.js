@@ -1,4 +1,4 @@
-export class ProductComponent {
+export class ProductDetails {
   constructor(parent, data) {
     this.parent = parent;
     this.data = data;

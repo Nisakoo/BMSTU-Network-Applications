@@ -1,6 +1,6 @@
-import { ProductComponent } from "../../components/product/index.js";
-import { BackButtonComponent } from "../../components/back-button/index.js";
 import { MainPage } from "../main/index.js";
+import { ProductDetails } from "../../components/product-details/ProductDetails.js";
+import { NavigationBackButton } from "../../components/nav-back-button/NavigationBackButton.js";
 
 export class ProductPage {
   constructor(parent, data) {
@@ -28,10 +28,10 @@ export class ProductPage {
     const html = this.getHTML();
     this.parent.insertAdjacentHTML("beforeend", html);
 
-    const backButton = new BackButtonComponent(this.pageRoot);
+    const backButton = new NavigationBackButton(this.pageRoot);
     backButton.render(this.clickBack.bind(this));
 
-    const stock = new ProductComponent(this.pageRoot, this.data);
+    const stock = new ProductDetails(this.pageRoot, this.data);
     stock.render();
   }
 }

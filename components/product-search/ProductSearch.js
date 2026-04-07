@@ -1,4 +1,4 @@
-export class SearchComponent {
+export class ProductSearch {
   constructor(parent) {
     this.parent = parent;
   }
