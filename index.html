@@ -21,5 +21,14 @@
         <script src="main.js" type="module"></script>
 
         <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "./node_modules/three/build/three.module.js",
+                    "three/examples/jsm/": "./node_modules/three/examples/jsm/",
+                    "fflate": "./node_modules/fflate/lib/browser.module.js"
+                }
+            }
+        </script>
     </body>
 </html>

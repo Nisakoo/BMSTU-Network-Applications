@@ -1,12 +1,26 @@
+import { countIdentic } from "../../utils/utils.js";
+
 export class ProductSearch {
   constructor(parent) {
     this.parent = parent;
+    this.searchHistory = [];
   }
 
   addListeners(listener) {
     const input = document.getElementById("search-input");
     input.addEventListener("input", (event) => {
-      listener(event.target.value);
+      const searchValue = event.target.value;
+      listener(searchValue);
+
+      if (searchValue.trim().length > 2) {
+        this.searchHistory.push(searchValue.toLowerCase());
+        const duplicatesCount = countIdentic(this.searchHistory);
+        if (duplicatesCount > 0) {
+          console.log(
+            `[Аналитика поиска] Повторяющихся запросов в этой сессии: ${duplicatesCount}`,
+          );
+        }
+      }
     });
   }
 
