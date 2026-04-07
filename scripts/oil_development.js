@@ -10,7 +10,7 @@ const findSalesTax = (profit, tax) => Math.round(profit * (1 - tax / 100));
 const calcPipelineChemicalization = (current) =>
   Math.round(2 * Math.random() * current);
 
-class OilProductionApp {
+class OilDevelopment {
   constructor(callback) {
     this.tokens = [];
     this.currentNumber = "";
@@ -215,7 +215,7 @@ const createResultBoxCallback = () => {
   };
 };
 
-const app = new OilProductionApp(createResultBoxCallback());
+const app = new OilDevelopment(createResultBoxCallback());
 
 const oilProductionInterface = {
   buttons: [
