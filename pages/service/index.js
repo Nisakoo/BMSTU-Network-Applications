@@ -20,17 +20,15 @@ export class ServicePage {
     `;
   }
 
-  getData() {
-    ajax.get(serviceUrls.getServiceById(this.id), (data) => {
-      this.renderData(data);
-    });
+  async getData() {
+    const data = await ajax.get(serviceUrls.getServiceById(this.id));
+    this.renderData(data);
   }
 
-  deleteService() {
-    ajax.delete(serviceUrls.deleteServiceById(this.id), () => {
-      const mainPage = new MainPage(this.parent);
-      mainPage.render();
-    });
+  async deleteService() {
+    await ajax.delete(serviceUrls.deleteServiceById(this.id));
+    const mainPage = new MainPage(this.parent);
+    mainPage.render();
   }
 
   editService() {

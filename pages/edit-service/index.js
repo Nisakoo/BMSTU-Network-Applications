@@ -51,16 +51,15 @@ export class EditServicePage {
     `;
   }
 
-  getData() {
+  async getData() {
     if (this.id) {
-      ajax.get(serviceUrls.getServiceById(this.id), (data) => {
-        if (data) {
-          document.getElementById("title").value = data.title || "";
-          document.getElementById("text").value = data.text || "";
-          document.getElementById("src").value = data.src || "";
-          document.getElementById("big_src").value = data.big_src || "";
-        }
-      });
+      const data = await ajax.get(serviceUrls.getServiceById(this.id));
+      if (data) {
+        document.getElementById("title").value = data.title || "";
+        document.getElementById("text").value = data.text || "";
+        document.getElementById("src").value = data.src || "";
+        document.getElementById("big_src").value = data.big_src || "";
+      }
     }
   }
 

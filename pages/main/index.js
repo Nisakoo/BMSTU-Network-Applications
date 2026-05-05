@@ -33,10 +33,9 @@ export class MainPage {
     `;
   }
 
-  getData() {
-    ajax.get(serviceUrls.getServices(), (data) => {
-      this.renderCards(data);
-    });
+  async getData() {
+    const data = await ajax.get(serviceUrls.getServices());
+    this.renderCards(data);
   }
 
   clickCard(e) {
@@ -46,11 +45,10 @@ export class MainPage {
     servicePage.render();
   }
 
-  deleteCard(e) {
+  async deleteCard(e) {
     const cardId = e.target.dataset.id;
-    ajax.delete(serviceUrls.deleteServiceById(cardId), () => {
-      this.getData();
-    });
+    await ajax.delete(serviceUrls.deleteServiceById(cardId));
+    this.getData();
   }
 
   addCard() {
@@ -58,13 +56,11 @@ export class MainPage {
     editPage.render();
   }
 
-  filterCards(searchValue) {
-    ajax.get(
+  async filterCards(searchValue) {
+    const data = await ajax.get(
       `${serviceUrls.getServices()}?title=${encodeURIComponent(searchValue)}`,
-      (data) => {
-        this.renderCards(data);
-      },
     );
+    this.renderCards(data);
   }
 
   renderCards(services) {
