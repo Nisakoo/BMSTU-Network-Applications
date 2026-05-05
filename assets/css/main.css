@@ -150,24 +150,6 @@ body {
     background-color: white;
 }
 
-.back-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 30px;
-
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 40px;
-    background-color: transparent;
-    color: black;
-
-    transition: all 0.3s ease;
-}
-
-.back-btn:hover {
-    background-color: black;
-}
-
 .brand {
     color: black;
     font-size: 18px;
