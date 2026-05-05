@@ -40,9 +40,10 @@ export class EditServicePage {
                 </div>
               </div>
 
-              <div class="alert alert-info border-0 rounded-4 mt-3" style="background-color: rgba(74, 161, 119, 0.1); color: var(--green-color);">
-                <i class="bi bi-info-circle me-2"></i>
-                Данные загружены из API. Кнопка сохранения будет доступна в следующей лабораторной работе.
+              <div class="d-grid mt-4">
+                <button type="submit" class="service-card__btn" style="background-color: var(--green-color); border-color: var(--green-color); color: white; padding: 15px;" id="save-btn">
+                  Сохранить изменения
+                </button>
               </div>
             </form>
           </div>
@@ -63,11 +64,40 @@ export class EditServicePage {
     }
   }
 
+  async save(e) {
+    e.preventDefault();
+
+    const data = {
+      title: document.getElementById("title").value,
+      text: document.getElementById("text").value,
+      src: document.getElementById("src").value,
+      big_src: document.getElementById("big_src").value,
+    };
+
+    try {
+      if (this.id) {
+        await ajax.patch(serviceUrls.updateServiceById(this.id), data);
+      } else {
+        await ajax.post(serviceUrls.createService(), data);
+      }
+
+      const mainPage = new MainPage(this.parent);
+      mainPage.render();
+    } catch (error) {
+      console.error("Ошибка при сохранении:", error);
+      alert("Не удалось сохранить данные");
+    }
+  }
+
   addListeners() {
     document.getElementById("back-btn").addEventListener("click", () => {
       const mainPage = new MainPage(this.parent);
       mainPage.render();
     });
+
+    document
+      .getElementById("edit-service-form")
+      .addEventListener("submit", this.save.bind(this));
   }
 
   render() {
