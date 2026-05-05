@@ -19,6 +19,7 @@ app.use(express.json());
 app.use(loggerMiddleware);
 
 // Routes
+app.use(express.static(path.join(import.meta.dirname, "../public")));
 app.use("/services", servicesRouter);
 
 // 404 handler
