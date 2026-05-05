@@ -1,26 +1,26 @@
-export class ProductCard {
+export class ServiceCard {
   constructor(parent) {
     this.parent = parent;
   }
 
   getHTML(data) {
     return `
-      <div class="product-card col-auto">
-          <button class="product-card__delete" id="delete-card-${data.id}" data-id="${data.id}"></button>
-          <div class="product-card-bg">
+      <div class="service-card col-auto">
+          <button class="service-card__delete" id="delete-service-${data.id}" data-id="${data.id}"></button>
+          <div class="service-card-bg">
               <img
-                  class="product-card-bg__img"
+                  class="service-card-bg__img"
                   src="${data.src}"
               />
           </div>
-          <div class="product-card-fg">
+          <div class="service-card-fg">
               <div>
-                  <p class="product-card__title">${data.title}</p>
-                  <p class="product-card__desc">
+                  <p class="service-card__title">${data.title}</p>
+                  <p class="service-card__desc">
                     ${data.text}
                   </p>
               </div>
-              <button class="product-card__btn" id="click-card-${data.id}" data-id="${data.id}">Подробнее</button>
+              <button class="service-card__btn" id="click-service-${data.id}" data-id="${data.id}">Подробнее</button>
           </div>
       </div>
     `;
@@ -28,11 +28,11 @@ export class ProductCard {
 
   addListeners(data, onClick, onDelete) {
     document
-      .getElementById(`click-card-${data.id}`)
+      .getElementById(`click-service-${data.id}`)
       .addEventListener("click", onClick);
 
     document
-      .getElementById(`delete-card-${data.id}`)
+      .getElementById(`delete-service-${data.id}`)
       .addEventListener("click", onDelete);
   }
 

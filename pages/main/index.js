@@ -1,13 +1,13 @@
-import { ProductPage } from "../product/index.js";
-import { ProductCard } from "../../components/product-card/ProductCard.js";
-import { AddProductButton } from "../../components/add-product-button/AddProductButton.js";
-import { ProductSearch } from "../../components/product-search/ProductSearch.js";
+import { ServicePage } from "../service/index.js";
+import { ServiceCard } from "../../components/service-card/ServiceCard.js";
+import { AddServiceButton } from "../../components/add-service-button/AddServiceButton.js";
+import { ServiceSearch } from "../../components/service-search/ServiceSearch.js";
+import { ajax } from "../../modules/ajax.js";
+import { serviceUrls } from "../../modules/serviceUrls.js";
 
 export class MainPage {
   constructor(parent) {
     this.parent = parent;
-    this.state = this.getData();
-    this.globalCardId = 6;
   }
 
   get pageRoot() {
@@ -33,106 +33,56 @@ export class MainPage {
   }
 
   getData() {
-    return [
-      {
-        id: 1,
-        src: "/assets/images/image_1.webp",
-        big_src: "/assets/images/big_image_1.webp",
-        title: "Бурение",
-        text: "Скважины, которые работают. Без пауз",
-      },
-      {
-        id: 2,
-        src: "/assets/images/image_2.webp",
-        big_src: "/assets/images/big_image_2.webp",
-        title: "Геологоразведка",
-        text: "Знаем, где лежит ваша прибыль",
-      },
-      {
-        id: 3,
-        src: "/assets/images/image_3.webp",
-        big_src: "/assets/images/big_image_3.png",
-        title: "Добыча",
-        text: "Максимальная отдача каждого пласта",
-      },
-      {
-        id: 4,
-        src: "/assets/images/image_4.webp",
-        big_src: "/assets/images/big_image_4.webp",
-        title: "Нефтепереработка",
-        text: "Больше, чем просто сырье",
-      },
-      {
-        id: 5,
-        src: "/assets/images/image_5.webp",
-        big_src: "/assets/images/big_image_5.webp",
-        title: "Экология",
-        text: "Работаем чисто",
-      },
-    ];
-  }
-
-  findProductById(id) {
-    for (let product of this.state) {
-      if (product.id == id) {
-        return product;
-      }
-    }
-    return null;
-  }
-
-  deleteProductById(id) {
-    this.state = this.state.filter((product) => product.id != id);
+    ajax.get(serviceUrls.getServices(), (data) => {
+      this.renderCards(data);
+    });
   }
 
   clickCard(e) {
     const cardId = e.target.dataset.id;
 
-    const productPage = new ProductPage(
-      this.parent,
-      this.findProductById(cardId),
-    );
-    productPage.render();
+    const servicePage = new ServicePage(this.parent, cardId);
+    servicePage.render();
   }
 
   deleteCard(e) {
     const cardId = e.target.dataset.id;
-    this.deleteProductById(cardId);
-    this.render();
+    ajax.delete(serviceUrls.deleteServiceById(cardId), () => {
+      this.getData();
+    });
   }
 
   addCard(e) {
-    const firstCard = this.getData()[0];
-    firstCard.id = this.globalCardId;
-    this.globalCardId++;
-
-    this.state.push(firstCard);
-
-    const productCard = new ProductCard(this.cardContainer);
-    productCard.render(
-      firstCard,
-      this.clickCard.bind(this),
-      this.deleteCard.bind(this),
-    );
+    // Дублируем первую карточку как в оригинальном задании, но через API
+    ajax.get(serviceUrls.getServices(), (data) => {
+      if (data && data.length > 0) {
+        const firstService = data[0];
+        const { id, ...newServiceData } = firstService; // Удаляем ID для создания новой
+        ajax.post(serviceUrls.createService(), newServiceData, () => {
+          this.getData();
+        });
+      }
+    });
   }
 
   filterCards(searchValue) {
-    const filtered = this.state.filter((item) =>
-      item.title.toLowerCase().includes(searchValue.toLowerCase()),
+    ajax.get(
+      `${serviceUrls.getServices()}?title=${encodeURIComponent(searchValue)}`,
+      (data) => {
+        this.renderCards(data);
+      },
     );
-
-    this.renderCards(filtered);
   }
 
-  renderCards(cards) {
+  renderCards(services) {
     this.cardContainer.innerHTML = "";
 
-    const addButton = new AddProductButton(this.cardContainer);
+    const addButton = new AddServiceButton(this.cardContainer);
     addButton.render(this.addCard.bind(this));
 
-    cards.forEach((item) => {
-      const productCard = new ProductCard(this.cardContainer);
-      productCard.render(
+    services.forEach((item) => {
+      const serviceCard = new ServiceCard(this.cardContainer);
+      serviceCard.render(
         item,
         this.clickCard.bind(this),
         this.deleteCard.bind(this),
@@ -145,9 +95,9 @@ export class MainPage {
     const html = this.getHTML();
     this.parent.insertAdjacentHTML("beforeend", html);
 
-    const search = new ProductSearch(this.searchContainer);
+    const search = new ServiceSearch(this.searchContainer);
     search.render(this.filterCards.bind(this));
 
-    this.renderCards(this.state);
+    this.getData();
   }
 }

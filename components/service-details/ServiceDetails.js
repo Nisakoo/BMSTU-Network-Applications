@@ -7,7 +7,7 @@ import {
   processSensorAlerts,
 } from "../../utils/utils.js";
 
-export class ProductDetails {
+export class ServiceDetails {
   constructor(parent, data) {
     this.parent = parent;
 
@@ -24,18 +24,19 @@ export class ProductDetails {
     const maxUptime = getMaxActiveSequence(this.data.telemetry);
 
     return `
-      <div class="big-product-card my-2">
-          <div class="product-card-bg">
+      <div class="big-service-card my-2">
+          <div class="service-card-bg">
               <img
-                  class="product-card-bg__img"
+                  class="service-card-bg__img"
                   src="${this.data.big_src}"
               />
           </div>
-          <div class="product-card-fg">
-              <div class="d-flex justify-content-end">
-                <p class="product-card__title">${this.data.title}</p>
+          <div class="service-card-fg">
+              <div class="d-flex justify-content-between align-items-center">
+                <button class="btn btn-danger" id="delete-service-btn">Удалить услугу</button>
+                <p class="service-card__title">${this.data.title}</p>
               </div>
-              <p class="product-card__desc">
+              <p class="service-card__desc">
                 ${this.data.text}
               </p>
 
@@ -51,9 +52,16 @@ export class ProductDetails {
     `;
   }
 
-  render() {
+  addListeners(onDelete) {
+    document
+      .getElementById("delete-service-btn")
+      .addEventListener("click", onDelete);
+  }
+
+  render(onDelete) {
     const html = this.getHTML();
     this.parent.insertAdjacentHTML("beforeend", html);
+    this.addListeners(onDelete);
 
     const mockLogsQueue = [
       "Давление: Норма",

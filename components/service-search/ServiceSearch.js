@@ -1,6 +1,6 @@
 import { countIdentic } from "../../utils/utils.js";
 
-export class ProductSearch {
+export class ServiceSearch {
   constructor(parent) {
     this.parent = parent;
     this.searchHistory = [];

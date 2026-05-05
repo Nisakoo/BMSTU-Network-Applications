@@ -1,0 +1,47 @@
+import { ServiceDetails } from "../../components/service-details/ServiceDetails.js";
+import { ajax } from "../../modules/ajax.js";
+import { serviceUrls } from "../../modules/serviceUrls.js";
+import { MainPage } from "../main/index.js";
+
+export class ServicePage {
+  constructor(parent, id) {
+    this.parent = parent;
+    this.id = id;
+  }
+
+  get pageRoot() {
+    return document.getElementById("service-page");
+  }
+
+  getHTML() {
+    return `
+        <div id="service-page"></div>
+    `;
+  }
+
+  getData() {
+    ajax.get(serviceUrls.getServiceById(this.id), (data) => {
+      this.renderData(data);
+    });
+  }
+
+  deleteService() {
+    ajax.delete(serviceUrls.deleteServiceById(this.id), () => {
+      const mainPage = new MainPage(this.parent);
+      mainPage.render();
+    });
+  }
+
+  renderData(data) {
+    const serviceDetails = new ServiceDetails(this.pageRoot, data);
+    serviceDetails.render(this.deleteService.bind(this));
+  }
+
+  render() {
+    this.parent.innerHTML = "";
+    const html = this.getHTML();
+    this.parent.insertAdjacentHTML("beforeend", html);
+
+    this.getData();
+  }
+}

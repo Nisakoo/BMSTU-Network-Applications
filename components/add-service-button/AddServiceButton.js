@@ -1,15 +1,15 @@
-export class AddProductButton {
+export class AddServiceButton {
   constructor(parent) {
     this.parent = parent;
   }
 
   getHTML() {
     return `
-      <div class="product-card add-btn col-auto" id="add-btn" tabindex="0">
-          <div class="product-card-bg">
+      <div class="service-card add-btn col-auto" id="add-btn" tabindex="0">
+          <div class="service-card-bg">
               <div class="add-btn-placeholder"></div>
           </div>
-          <div class="product-card-fg">
+          <div class="service-card-fg">
               <div class="add-btn-content">
                   <span class="add-plus">+</span>
                   <p class="add-text">Добавить услугу</p>

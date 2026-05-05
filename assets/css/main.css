@@ -8,7 +8,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-.big-product-card {
+.big-service-card {
     position: relative;
     width: 100%;
     height: 600px;
@@ -16,7 +16,7 @@ body {
     overflow: hidden;
 }
 
-.product-card {
+.service-card {
     position: relative;
     width: 320px;
     height: 400px;
@@ -24,7 +24,7 @@ body {
     overflow: hidden;
 }
 
-.product-card__delete {
+.service-card__delete {
     position: absolute;
     top: 12px;
     right: 12px;
@@ -43,7 +43,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.product-card__delete::before {
+.service-card__delete::before {
     content: "\2716";
     color: white;
     font-size: 10px;
@@ -53,11 +53,11 @@ body {
     align-items: center;
 }
 
-.product-card__delete:hover {
+.service-card__delete:hover {
     background-color: var(--red-color);
 }
 
-.product-card-bg {
+.service-card-bg {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -66,7 +66,7 @@ body {
     z-index: 1;
 }
 
-.product-card-bg::after {
+.service-card-bg::after {
     content: "";
     position: absolute;
     top: 0;
@@ -84,7 +84,7 @@ body {
     pointer-events: none;
 }
 
-.product-card-bg__img {
+.service-card-bg__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -92,7 +92,7 @@ body {
     transition: transform 0.5s ease;
 }
 
-.product-card-fg {
+.service-card-fg {
     position: relative;
     height: 100%;
     z-index: 10;
@@ -104,35 +104,35 @@ body {
     color: white;
 }
 
-.product-card:hover .product-card-bg__img {
+.service-card:hover .service-card-bg__img {
     transform: scale(1.08);
 }
 
-.product-card .product-card__title {
+.service-card .service-card__title {
     font-size: 24px;
     font-weight: 600;
     letter-spacing: -0.5px;
 }
 
-.product-card .product-card__desc {
+.service-card .service-card__desc {
     font-size: 16px;
     font-weight: 500;
     opacity: 0.9;
 }
 
-.big-product-card .product-card__title {
+.big-service-card .service-card__title {
     font-size: 36px;
     font-weight: 600;
     letter-spacing: -0.5px;
 }
 
-.big-product-card .product-card__desc {
+.big-service-card .service-card__desc {
     font-size: 24px;
     font-weight: 500;
     opacity: 0.9;
 }
 
-.product-card__btn {
+.service-card__btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -146,7 +146,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.product-card__btn:hover {
+.service-card__btn:hover {
     background-color: white;
 }
 
@@ -177,15 +177,15 @@ body {
     justify-content: start;
 }
 
-.add-btn .product-card-bg {
+.add-btn .service-card-bg {
     background: transparent;
 }
 
-.add-btn .product-card-bg::after {
+.add-btn .service-card-bg::after {
     display: none;
 }
 
-.add-btn .product-card-fg {
+.add-btn .service-card-fg {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -215,7 +215,7 @@ body {
     background-color: rgba(74, 161, 119, 0.05);
 }
 
-.add-btn:hover .product-card-fg {
+.add-btn:hover .service-card-fg {
     color: var(--green-color);
 }
 
