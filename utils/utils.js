@@ -48,6 +48,14 @@ function processSensorAlerts(alertsQueue) {
   console.log(`[Система] Обработано логов до остановки: ${processedCount}`);
 }
 
+export function debounce(func, delay) {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(null, args), delay);
+  };
+}
+
 export {
   getAverage,
   getMaxActiveSequence,

@@ -1,4 +1,4 @@
-import { countIdentic } from "../../utils/utils.js";
+import { countIdentic, debounce } from "../../utils/utils.js";
 
 export class ServiceSearch {
   constructor(parent) {
@@ -8,8 +8,8 @@ export class ServiceSearch {
 
   addListeners(listener) {
     const input = document.getElementById("search-input");
-    input.addEventListener("input", (event) => {
-      const searchValue = event.target.value;
+
+    const debouncedSearch = debounce((searchValue) => {
       listener(searchValue);
 
       if (searchValue.trim().length > 2) {
@@ -21,6 +21,10 @@ export class ServiceSearch {
           );
         }
       }
+    }, 300);
+
+    input.addEventListener("input", (event) => {
+      debouncedSearch(event.target.value);
     });
   }
 
