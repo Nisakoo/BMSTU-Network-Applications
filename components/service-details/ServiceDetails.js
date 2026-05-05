@@ -33,7 +33,10 @@ export class ServiceDetails {
           </div>
           <div class="service-card-fg">
               <div class="d-flex justify-content-between align-items-center">
-                <button class="btn btn-danger" id="delete-service-btn">Удалить услугу</button>
+                <div class="d-flex gap-2">
+                  <button class="service-card__btn service-card__btn--danger" id="delete-service-btn">Удалить услугу</button>
+                  <button class="service-card__btn" id="edit-service-btn">Редактировать</button>
+                </div>
                 <p class="service-card__title">${this.data.title}</p>
               </div>
               <p class="service-card__desc">
@@ -52,16 +55,19 @@ export class ServiceDetails {
     `;
   }
 
-  addListeners(onDelete) {
+  addListeners(onDelete, onEdit) {
     document
       .getElementById("delete-service-btn")
       .addEventListener("click", onDelete);
+    document
+      .getElementById("edit-service-btn")
+      .addEventListener("click", onEdit);
   }
 
-  render(onDelete) {
+  render(onDelete, onEdit) {
     const html = this.getHTML();
     this.parent.insertAdjacentHTML("beforeend", html);
-    this.addListeners(onDelete);
+    this.addListeners(onDelete, onEdit);
 
     const mockLogsQueue = [
       "Давление: Норма",

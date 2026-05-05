@@ -148,6 +148,13 @@ body {
 
 .service-card__btn:hover {
     background-color: white;
+    color: black;
+}
+
+.service-card__btn--danger:hover {
+    background-color: var(--red-color);
+    border-color: var(--red-color);
+    color: white;
 }
 
 .brand {

@@ -2,6 +2,7 @@ import { ServiceDetails } from "../../components/service-details/ServiceDetails.
 import { ajax } from "../../modules/ajax.js";
 import { serviceUrls } from "../../modules/serviceUrls.js";
 import { MainPage } from "../main/index.js";
+import { EditServicePage } from "../edit-service/index.js";
 
 export class ServicePage {
   constructor(parent, id) {
@@ -32,9 +33,17 @@ export class ServicePage {
     });
   }
 
+  editService() {
+    const editPage = new EditServicePage(this.parent, this.id);
+    editPage.render();
+  }
+
   renderData(data) {
     const serviceDetails = new ServiceDetails(this.pageRoot, data);
-    serviceDetails.render(this.deleteService.bind(this));
+    serviceDetails.render(
+      this.deleteService.bind(this),
+      this.editService.bind(this),
+    );
   }
 
   render() {

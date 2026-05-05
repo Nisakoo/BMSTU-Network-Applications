@@ -4,6 +4,7 @@ import { AddServiceButton } from "../../components/add-service-button/AddService
 import { ServiceSearch } from "../../components/service-search/ServiceSearch.js";
 import { ajax } from "../../modules/ajax.js";
 import { serviceUrls } from "../../modules/serviceUrls.js";
+import { EditServicePage } from "../edit-service/index.js";
 
 export class MainPage {
   constructor(parent) {
@@ -52,17 +53,9 @@ export class MainPage {
     });
   }
 
-  addCard(e) {
-    // Дублируем первую карточку как в оригинальном задании, но через API
-    ajax.get(serviceUrls.getServices(), (data) => {
-      if (data && data.length > 0) {
-        const firstService = data[0];
-        const { id, ...newServiceData } = firstService; // Удаляем ID для создания новой
-        ajax.post(serviceUrls.createService(), newServiceData, () => {
-          this.getData();
-        });
-      }
-    });
+  addCard() {
+    const editPage = new EditServicePage(this.parent);
+    editPage.render();
   }
 
   filterCards(searchValue) {
