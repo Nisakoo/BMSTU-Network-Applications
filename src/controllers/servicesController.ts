@@ -5,8 +5,8 @@ import {
   create,
   update,
   remove,
-} from "../services/stocksService.js";
-import type { StockData } from "../types/stock.js";
+} from "../services/servicesService.js";
+import type { ServiceData } from "../types/service.js";
 import type { ErrorRespond } from "../common/response.js";
 
 const parseIdOrRespondError = (req: Request, res: Response): number | null => {
@@ -31,33 +31,33 @@ const parseIdOrRespondError = (req: Request, res: Response): number | null => {
   return id;
 };
 
-const getAllStocks = (req: Request, res: Response): void => {
+const getServices = (req: Request, res: Response): void => {
   const title = req.query.title as string | undefined;
 
-  const stocks = findAll(title!);
-  res.json(stocks);
+  const services = findAll(title!);
+  res.json(services);
 };
 
-const getStockById = (req: Request, res: Response): void => {
+const getServiceById = (req: Request, res: Response): void => {
   const id = parseIdOrRespondError(req, res);
   if (id === null) {
     return;
   }
 
-  const stock = findOne(id);
+  const service = findOne(id);
 
-  if (!stock) {
+  if (!service) {
     res.status(404).json({
-      error: "stock not found",
+      error: "service not found",
       code: 404,
     } satisfies ErrorRespond);
     return;
   }
 
-  res.json(stock);
+  res.json(service);
 };
 
-const createStock = (req: Request, res: Response) => {
+const createService = (req: Request, res: Response) => {
   const src = req.body.src as string | undefined;
   const title = req.body.title as string | undefined;
   const text = req.body.text as string | undefined;
@@ -70,31 +70,31 @@ const createStock = (req: Request, res: Response) => {
     return;
   }
 
-  const newStock = create({ src, title, text } as StockData);
-  res.status(201).json(newStock);
+  const newService = create({ src, title, text } as ServiceData);
+  res.status(201).json(newService);
 };
 
-const updateStock = (req: Request, res: Response) => {
+const updateService = (req: Request, res: Response) => {
   const id = parseIdOrRespondError(req, res);
   if (id === null) {
     return;
   }
 
-  const values = req.body as Partial<StockData>;
-  const updatedStock = update(id, values);
+  const values = req.body as Partial<ServiceData>;
+  const updatedService = update(id, values);
 
-  if (!updatedStock) {
+  if (!updatedService) {
     res.status(404).json({
-      error: "stock not found",
+      error: "service not found",
       code: 404,
     } satisfies ErrorRespond);
     return;
   }
 
-  res.json(updatedStock);
+  res.json(updatedService);
 };
 
-const deleteStock = (req: Request, res: Response) => {
+const deleteService = (req: Request, res: Response) => {
   const id = parseIdOrRespondError(req, res);
   if (id === null) {
     return;
@@ -104,7 +104,7 @@ const deleteStock = (req: Request, res: Response) => {
 
   if (!success) {
     res.status(404).json({
-      error: "stock not found",
+      error: "service not found",
       code: 404,
     } satisfies ErrorRespond);
     return;
@@ -113,4 +113,4 @@ const deleteStock = (req: Request, res: Response) => {
   res.status(204).send();
 };
 
-export { getAllStocks, getStockById, createStock, updateStock, deleteStock };
+export { getServices, getServiceById, createService, updateService, deleteService };

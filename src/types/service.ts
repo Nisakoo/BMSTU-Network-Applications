@@ -1,14 +1,14 @@
-interface Stock {
+interface OilService {
   id: number;
   src: string;
   title: string;
   text: string;
 }
 
-interface StockData {
+interface ServiceData {
   src: string;
   title: string;
   text: string;
 }
 
-export type { Stock, StockData };
+export type { OilService, ServiceData };
