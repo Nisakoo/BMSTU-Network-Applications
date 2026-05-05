@@ -58,19 +58,17 @@ const getServiceById = (req: Request, res: Response): void => {
 };
 
 const createService = (req: Request, res: Response) => {
-  const src = req.body.src as string | undefined;
-  const title = req.body.title as string | undefined;
-  const text = req.body.text as string | undefined;
+  const { src, big_src, title, text } = req.body;
 
-  if (!src || !title || !text) {
+  if (!src || !big_src || !title || !text) {
     res.status(400).json({
-      error: "provide all fields",
+      error: "provide all fields (src, big_src, title, text)",
       code: 400,
     } satisfies ErrorRespond);
     return;
   }
 
-  const newService = create({ src, title, text } as ServiceData);
+  const newService = create({ src, big_src, title, text } as ServiceData);
   res.status(201).json(newService);
 };
 

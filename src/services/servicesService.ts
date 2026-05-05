@@ -31,6 +31,7 @@ const create = (serviceData: ServiceData): OilService => {
   const newService: OilService = {
     id: newId,
     src: serviceData.src,
+    big_src: serviceData.big_src,
     title: serviceData.title,
     text: serviceData.text,
   };
