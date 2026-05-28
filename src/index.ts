@@ -20,7 +20,7 @@ app.use(loggerMiddleware);
 
 // Routes
 app.use(express.static(path.join(import.meta.dirname, "../public")));
-app.use("/services", servicesRouter);
+app.use("/oil_development", servicesRouter);
 
 // 404 handler
 app.use((req: Request, res: Response): void => {
