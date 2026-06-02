@@ -25,7 +25,7 @@ export class EditOilDevelopmentPage {
 
               <div class="mb-4">
                 <label for="text" class="form-label fw-bold">Техническое описание</label>
-                <textarea class="search-input" id="text" rows="4" style="border-radius: 20px;" placeholder="Введите описание характеристик..."></textarea>
+                <textarea class="search-input" id="text" rows="4" placeholder="Введите описание характеристик..."></textarea>
               </div>
 
               <div class="row">
@@ -40,7 +40,7 @@ export class EditOilDevelopmentPage {
               </div>
 
               <div class="d-grid mt-4">
-                <button type="submit" class="oil-development-card__btn" style="background-color: var(--green-color); border-color: var(--green-color); color: white; padding: 15px;" id="save-btn">
+                <button type="submit" class="form-btn" id="save-btn">
                   Сохранить изменения
                 </button>
               </div>
