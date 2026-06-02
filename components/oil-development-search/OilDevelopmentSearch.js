@@ -1,4 +1,4 @@
-import { countIdentic, debounce } from "../../utils/utils.js";
+import { countIdentic } from "../../utils/utils.js";
 
 export class OilDevelopmentSearch {
   constructor(parent) {
@@ -8,8 +8,10 @@ export class OilDevelopmentSearch {
 
   addListeners(listener) {
     const input = document.getElementById("search-input");
+    const button = document.getElementById("search-button");
 
-    const debouncedSearch = debounce((searchValue) => {
+    const performSearch = () => {
+      const searchValue = input.value;
       listener(searchValue);
 
       if (searchValue.trim().length > 2) {
@@ -21,10 +23,14 @@ export class OilDevelopmentSearch {
           );
         }
       }
-    }, 300);
+    };
 
-    input.addEventListener("input", (event) => {
-      debouncedSearch(event.target.value);
+    button.addEventListener("click", performSearch);
+
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        performSearch();
+      }
     });
   }
 
@@ -38,6 +44,13 @@ export class OilDevelopmentSearch {
           placeholder="Поиск объектов..."
           autocomplete="off"
         >
+        <button
+          id="search-button"
+          class="search-button"
+          type="button"
+        >
+          Найти
+        </button>
       </div>
     `;
   }
