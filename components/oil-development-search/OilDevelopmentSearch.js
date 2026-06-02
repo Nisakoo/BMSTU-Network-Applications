@@ -1,6 +1,6 @@
 import { countIdentic, debounce } from "../../utils/utils.js";
 
-export class ServiceSearch {
+export class OilDevelopmentSearch {
   constructor(parent) {
     this.parent = parent;
     this.searchHistory = [];
@@ -35,7 +35,7 @@ export class ServiceSearch {
           id="search-input"
           class="search-input"
           type="text"
-          placeholder="Поиск услуг..."
+          placeholder="Поиск объектов..."
           autocomplete="off"
         >
       </div>

@@ -7,7 +7,7 @@ import {
   processSensorAlerts,
 } from "../../utils/utils.js";
 
-export class ServiceDetails {
+export class OilDevelopmentDetails {
   constructor(parent, data) {
     this.parent = parent;
 
@@ -24,22 +24,22 @@ export class ServiceDetails {
     const maxUptime = getMaxActiveSequence(this.data.telemetry);
 
     return `
-      <div class="big-service-card my-2">
-          <div class="service-card-bg">
+      <div class="big-oil-development-card my-2">
+          <div class="oil-development-card-bg">
               <img
-                  class="service-card-bg__img"
+                  class="oil-development-card-bg__img"
                   src="${this.data.big_src}"
               />
           </div>
-          <div class="service-card-fg">
+          <div class="oil-development-card-fg">
               <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex gap-2">
-                  <button class="service-card__btn service-card__btn--danger" id="delete-service-btn">Удалить услугу</button>
-                  <button class="service-card__btn" id="edit-service-btn">Редактировать</button>
+                  <button class="oil-development-card__btn oil-development-card__btn--danger" id="delete-oil-development-btn">Удалить объект</button>
+                  <button class="oil-development-card__btn" id="edit-oil-development-btn">Редактировать</button>
                 </div>
-                <p class="service-card__title">${this.data.title}</p>
+                <p class="oil-development-card__title">${this.data.title}</p>
               </div>
-              <p class="service-card__desc">
+              <p class="oil-development-card__desc">
                 ${this.data.text}
               </p>
 
@@ -57,10 +57,10 @@ export class ServiceDetails {
 
   addListeners(onDelete, onEdit) {
     document
-      .getElementById("delete-service-btn")
+      .getElementById("delete-oil-development-btn")
       .addEventListener("click", onDelete);
     document
-      .getElementById("edit-service-btn")
+      .getElementById("edit-oil-development-btn")
       .addEventListener("click", onEdit);
   }
 
