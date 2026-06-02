@@ -1,1 +1,1 @@
-# BMSTU-Network-Applications
+# Oil-Development-App
