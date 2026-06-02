@@ -7,9 +7,8 @@ export class ProductSearch {
   }
 
   addListeners(listener) {
-    const input = document.getElementById("search-input");
-    input.addEventListener("input", (event) => {
-      const searchValue = event.target.value;
+    document.getElementById("search-btn").addEventListener("click", () => {
+      const searchValue = document.getElementById("search-input").value;
       listener(searchValue);
 
       if (searchValue.trim().length > 2) {
@@ -34,6 +33,7 @@ export class ProductSearch {
           placeholder="Поиск услуг..."
           autocomplete="off"
         >
+        <button id="search-btn" class="search-btn" type="button">Поиск</button>
       </div>
     `;
   }
