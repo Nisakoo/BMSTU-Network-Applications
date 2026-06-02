@@ -5,8 +5,8 @@ import {
   create,
   update,
   remove,
-} from "../services/servicesService.js";
-import type { ServiceData } from "../types/service.js";
+} from "../services/oilDevelopmentService.js";
+import type { OilDevelopmentData } from "../types/oilDevelopment.js";
 import type { ErrorRespond } from "../common/response.js";
 
 const parseIdOrRespondError = (req: Request, res: Response): number | null => {
@@ -31,33 +31,33 @@ const parseIdOrRespondError = (req: Request, res: Response): number | null => {
   return id;
 };
 
-const getServices = (req: Request, res: Response): void => {
+const getOilDevelopments = (req: Request, res: Response): void => {
   const title = req.query.title as string | undefined;
 
-  const services = findAll(title!);
-  res.json(services);
+  const oilDevelopments = findAll(title!);
+  res.json(oilDevelopments);
 };
 
-const getServiceById = (req: Request, res: Response): void => {
+const getOilDevelopmentById = (req: Request, res: Response): void => {
   const id = parseIdOrRespondError(req, res);
   if (id === null) {
     return;
   }
 
-  const service = findOne(id);
+  const item = findOne(id);
 
-  if (!service) {
+  if (!item) {
     res.status(404).json({
-      error: "service not found",
+      error: "oil_development not found",
       code: 404,
     } satisfies ErrorRespond);
     return;
   }
 
-  res.json(service);
+  res.json(item);
 };
 
-const createService = (req: Request, res: Response) => {
+const createOilDevelopment = (req: Request, res: Response) => {
   const { src, big_src, title, text } = req.body;
 
   if (!src || !big_src || !title || !text) {
@@ -68,31 +68,31 @@ const createService = (req: Request, res: Response) => {
     return;
   }
 
-  const newService = create({ src, big_src, title, text } as ServiceData);
-  res.status(201).json(newService);
+  const newItem = create({ src, big_src, title, text } as OilDevelopmentData);
+  res.status(201).json(newItem);
 };
 
-const updateService = (req: Request, res: Response) => {
+const updateOilDevelopment = (req: Request, res: Response) => {
   const id = parseIdOrRespondError(req, res);
   if (id === null) {
     return;
   }
 
-  const values = req.body as Partial<ServiceData>;
-  const updatedService = update(id, values);
+  const values = req.body as Partial<OilDevelopmentData>;
+  const updatedItem = update(id, values);
 
-  if (!updatedService) {
+  if (!updatedItem) {
     res.status(404).json({
-      error: "service not found",
+      error: "oil_development not found",
       code: 404,
     } satisfies ErrorRespond);
     return;
   }
 
-  res.json(updatedService);
+  res.json(updatedItem);
 };
 
-const deleteService = (req: Request, res: Response) => {
+const deleteOilDevelopment = (req: Request, res: Response) => {
   const id = parseIdOrRespondError(req, res);
   if (id === null) {
     return;
@@ -102,7 +102,7 @@ const deleteService = (req: Request, res: Response) => {
 
   if (!success) {
     res.status(404).json({
-      error: "service not found",
+      error: "oil_development not found",
       code: 404,
     } satisfies ErrorRespond);
     return;
@@ -111,4 +111,4 @@ const deleteService = (req: Request, res: Response) => {
   res.status(204).send();
 };
 
-export { getServices, getServiceById, createService, updateService, deleteService };
+export { getOilDevelopments, getOilDevelopmentById, createOilDevelopment, updateOilDevelopment, deleteOilDevelopment };

@@ -1,4 +1,4 @@
-interface OilService {
+interface OilDevelopment {
   id: number;
   src: string;
   big_src: string;
@@ -6,11 +6,11 @@ interface OilService {
   text: string;
 }
 
-interface ServiceData {
+interface OilDevelopmentData {
   src: string;
   big_src: string;
   title: string;
   text: string;
 }
 
-export type { OilService, ServiceData };
+export type { OilDevelopment, OilDevelopmentData };
