@@ -1,6 +1,4 @@
-import { MainPage } from "../main/index.js";
 import { ProductDetails } from "../../components/product-details/ProductDetails.js";
-import { NavigationBackButton } from "../../components/nav-back-button/NavigationBackButton.js";
 
 export class ProductPage {
   constructor(parent, data) {
@@ -18,18 +16,10 @@ export class ProductPage {
     `;
   }
 
-  clickBack() {
-    const mainPage = new MainPage(this.parent);
-    mainPage.render();
-  }
-
   render() {
     this.parent.innerHTML = "";
     const html = this.getHTML();
     this.parent.insertAdjacentHTML("beforeend", html);
-
-    const backButton = new NavigationBackButton(this.pageRoot);
-    backButton.render(this.clickBack.bind(this));
 
     const stock = new ProductDetails(this.pageRoot, this.data);
     stock.render();

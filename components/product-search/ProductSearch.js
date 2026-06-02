@@ -4,9 +4,9 @@ export class ProductSearch {
   }
 
   addListeners(listener) {
-    const input = document.getElementById("search-input");
-    input.addEventListener("input", (event) => {
-      listener(event.target.value);
+    document.getElementById("search-btn").addEventListener("click", () => {
+      const value = document.getElementById("search-input").value;
+      listener(value);
     });
   }
 
@@ -20,6 +20,7 @@ export class ProductSearch {
           placeholder="Поиск услуг..."
           autocomplete="off"
         >
+        <button id="search-btn" class="search-btn" type="button">Поиск</button>
       </div>
     `;
   }

@@ -246,9 +246,30 @@ body {
 }
 
 .search-wrapper {
+    display: flex;
+    gap: 10px;
     margin-bottom: 20px;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
+}
+
+.search-btn {
+    padding: 12px 30px;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    background-color: transparent;
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background-color: black;
+    color: white;
 }
 
 .search-input {
