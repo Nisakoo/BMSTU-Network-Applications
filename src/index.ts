@@ -1,17 +1,21 @@
 import express from "express";
 import type { Request, Response } from "express";
 import path from "path";
+import { fileURLToPath } from "url";
 import loggerMiddleware from "./middleware/logger.js";
 import servicesRouter from "./routes/services.js";
 import { init } from "./services/servicesService.js";
 import type { ErrorRespond } from "./common/response.js";
 import errorMiddleware from "./middleware/error.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 const PORT: number = 3000;
 
 // Init servicesService
-const DATA_FILE_PATH = path.join(import.meta.dirname, "data/services.json");
+const DATA_FILE_PATH = path.join(__dirname, "data/services.json");
 init(DATA_FILE_PATH);
 
 // Middleware
