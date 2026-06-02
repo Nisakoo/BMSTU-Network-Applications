@@ -1,6 +1,5 @@
 import { ajax } from "../../modules/ajax.js";
 import { oilDevelopmentUrls } from "../../modules/oilDevelopmentUrls.js";
-import { MainPage } from "../main/index.js";
 
 export class EditOilDevelopmentPage {
   constructor(parent, id = null) {
@@ -13,7 +12,6 @@ export class EditOilDevelopmentPage {
       <div id="edit-oil-development-page" class="container mt-4 pb-5">
         <div class="d-flex justify-content-between align-items-center mb-5">
           <h2 style="font-weight: 700; letter-spacing: -1px;">${this.id ? "Редактирование" : "Новый объект"}</h2>
-          <button class="oil-development-card__btn" style="color: black; border-color: rgba(0,0,0,0.2);" id="back-btn">Назад</button>
         </div>
 
         <div class="row justify-content-center">
@@ -64,19 +62,11 @@ export class EditOilDevelopmentPage {
     }
   }
 
-  addListeners() {
-    document.getElementById("back-btn").addEventListener("click", () => {
-      const mainPage = new MainPage(this.parent);
-      mainPage.render();
-    });
-  }
-
   render() {
     this.parent.innerHTML = "";
     const html = this.getHTML();
     this.parent.insertAdjacentHTML("beforeend", html);
 
-    this.addListeners();
     this.getData();
   }
 }
