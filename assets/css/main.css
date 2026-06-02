@@ -8,7 +8,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-.big-service-card {
+.big-oil-development-card {
     position: relative;
     width: 100%;
     height: 600px;
@@ -16,7 +16,7 @@ body {
     overflow: hidden;
 }
 
-.service-card {
+.oil-development-card {
     position: relative;
     width: 320px;
     height: 400px;
@@ -24,7 +24,7 @@ body {
     overflow: hidden;
 }
 
-.service-card__delete {
+.oil-development-card__delete {
     position: absolute;
     top: 12px;
     right: 12px;
@@ -43,7 +43,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.service-card__delete::before {
+.oil-development-card__delete::before {
     content: "\2716";
     color: white;
     font-size: 10px;
@@ -53,11 +53,11 @@ body {
     align-items: center;
 }
 
-.service-card__delete:hover {
+.oil-development-card__delete:hover {
     background-color: var(--red-color);
 }
 
-.service-card-bg {
+.oil-development-card-bg {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -66,7 +66,7 @@ body {
     z-index: 1;
 }
 
-.service-card-bg::after {
+.oil-development-card-bg::after {
     content: "";
     position: absolute;
     top: 0;
@@ -84,7 +84,7 @@ body {
     pointer-events: none;
 }
 
-.service-card-bg__img {
+.oil-development-card-bg__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -92,7 +92,7 @@ body {
     transition: transform 0.5s ease;
 }
 
-.service-card-fg {
+.oil-development-card-fg {
     position: relative;
     height: 100%;
     z-index: 10;
@@ -104,35 +104,35 @@ body {
     color: white;
 }
 
-.service-card:hover .service-card-bg__img {
+.oil-development-card:hover .oil-development-card-bg__img {
     transform: scale(1.08);
 }
 
-.service-card .service-card__title {
+.oil-development-card .oil-development-card__title {
     font-size: 24px;
     font-weight: 600;
     letter-spacing: -0.5px;
 }
 
-.service-card .service-card__desc {
+.oil-development-card .oil-development-card__desc {
     font-size: 16px;
     font-weight: 500;
     opacity: 0.9;
 }
 
-.big-service-card .service-card__title {
+.big-oil-development-card .oil-development-card__title {
     font-size: 36px;
     font-weight: 600;
     letter-spacing: -0.5px;
 }
 
-.big-service-card .service-card__desc {
+.big-oil-development-card .oil-development-card__desc {
     font-size: 24px;
     font-weight: 500;
     opacity: 0.9;
 }
 
-.service-card__btn {
+.oil-development-card__btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -146,12 +146,12 @@ body {
     transition: all 0.3s ease;
 }
 
-.service-card__btn:hover {
+.oil-development-card__btn:hover {
     background-color: white;
     color: black;
 }
 
-.service-card__btn--danger:hover {
+.oil-development-card__btn--danger:hover {
     background-color: var(--red-color);
     border-color: var(--red-color);
     color: white;
@@ -184,15 +184,15 @@ body {
     justify-content: start;
 }
 
-.add-btn .service-card-bg {
+.add-btn .oil-development-card-bg {
     background: transparent;
 }
 
-.add-btn .service-card-bg::after {
+.add-btn .oil-development-card-bg::after {
     display: none;
 }
 
-.add-btn .service-card-fg {
+.add-btn .oil-development-card-fg {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -222,7 +222,7 @@ body {
     background-color: rgba(74, 161, 119, 0.05);
 }
 
-.add-btn:hover .service-card-fg {
+.add-btn:hover .oil-development-card-fg {
     color: var(--green-color);
 }
 

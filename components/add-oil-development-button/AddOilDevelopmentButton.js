@@ -1,18 +1,18 @@
-export class AddServiceButton {
+export class AddOilDevelopmentButton {
   constructor(parent) {
     this.parent = parent;
   }
 
   getHTML() {
     return `
-      <div class="service-card add-btn col-auto" id="add-btn" tabindex="0">
-          <div class="service-card-bg">
+      <div class="oil-development-card add-btn col-auto" id="add-btn" tabindex="0">
+          <div class="oil-development-card-bg">
               <div class="add-btn-placeholder"></div>
           </div>
-          <div class="service-card-fg">
+          <div class="oil-development-card-fg">
               <div class="add-btn-content">
                   <span class="add-plus">+</span>
-                  <p class="add-text">Добавить услугу</p>
+                  <p class="add-text">Добавить объект</p>
               </div>
           </div>
       </div>

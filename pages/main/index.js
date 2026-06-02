@@ -1,10 +1,10 @@
-import { ServicePage } from "../service/index.js";
-import { ServiceCard } from "../../components/service-card/ServiceCard.js";
-import { AddServiceButton } from "../../components/add-service-button/AddServiceButton.js";
-import { ServiceSearch } from "../../components/service-search/ServiceSearch.js";
+import { OilDevelopmentPage } from "../oil-development/index.js";
+import { OilDevelopmentCard } from "../../components/oil-development-card/OilDevelopmentCard.js";
+import { AddOilDevelopmentButton } from "../../components/add-oil-development-button/AddOilDevelopmentButton.js";
+import { OilDevelopmentSearch } from "../../components/oil-development-search/OilDevelopmentSearch.js";
 import { ajax } from "../../modules/ajax.js";
-import { serviceUrls } from "../../modules/serviceUrls.js";
-import { EditServicePage } from "../edit-service/index.js";
+import { oilDevelopmentUrls } from "../../modules/oilDevelopmentUrls.js";
+import { EditOilDevelopmentPage } from "../edit-oil-development/index.js";
 
 export class MainPage {
   constructor(parent) {
@@ -34,44 +34,44 @@ export class MainPage {
   }
 
   async getData() {
-    const data = await ajax.get(serviceUrls.getServices());
+    const data = await ajax.get(oilDevelopmentUrls.getOilDevelopments());
     this.renderCards(data);
   }
 
   clickCard(e) {
     const cardId = e.target.dataset.id;
 
-    const servicePage = new ServicePage(this.parent, cardId);
-    servicePage.render();
+    const oilDevelopmentPage = new OilDevelopmentPage(this.parent, cardId);
+    oilDevelopmentPage.render();
   }
 
   async deleteCard(e) {
     const cardId = e.target.dataset.id;
-    await ajax.delete(serviceUrls.deleteServiceById(cardId));
+    await ajax.delete(oilDevelopmentUrls.deleteOilDevelopmentById(cardId));
     this.getData();
   }
 
   addCard() {
-    const editPage = new EditServicePage(this.parent);
+    const editPage = new EditOilDevelopmentPage(this.parent);
     editPage.render();
   }
 
   async filterCards(searchValue) {
     const data = await ajax.get(
-      `${serviceUrls.getServices()}?title=${encodeURIComponent(searchValue)}`,
+      `${oilDevelopmentUrls.getOilDevelopments()}?title=${encodeURIComponent(searchValue)}`,
     );
     this.renderCards(data);
   }
 
-  renderCards(services) {
+  renderCards(oilDevelopments) {
     this.cardContainer.innerHTML = "";
 
-    const addButton = new AddServiceButton(this.cardContainer);
+    const addButton = new AddOilDevelopmentButton(this.cardContainer);
     addButton.render(this.addCard.bind(this));
 
-    services.forEach((item) => {
-      const serviceCard = new ServiceCard(this.cardContainer);
-      serviceCard.render(
+    oilDevelopments.forEach((item) => {
+      const oilDevelopmentCard = new OilDevelopmentCard(this.cardContainer);
+      oilDevelopmentCard.render(
         item,
         this.clickCard.bind(this),
         this.deleteCard.bind(this),
@@ -84,7 +84,7 @@ export class MainPage {
     const html = this.getHTML();
     this.parent.insertAdjacentHTML("beforeend", html);
 
-    const search = new ServiceSearch(this.searchContainer);
+    const search = new OilDevelopmentSearch(this.searchContainer);
     search.render(this.filterCards.bind(this));
 
     this.getData();

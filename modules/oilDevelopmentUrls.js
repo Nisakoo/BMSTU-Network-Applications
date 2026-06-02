@@ -1,27 +1,27 @@
-class ServiceUrls {
+class OilDevelopmentUrls {
   constructor() {
     this.baseUrl = "http://localhost:3000";
   }
 
-  getServices() {
+  getOilDevelopments() {
     return `${this.baseUrl}/oil_development`;
   }
 
-  getServiceById(id) {
+  getOilDevelopmentById(id) {
     return `${this.baseUrl}/oil_development/${id}`;
   }
 
-  createService() {
+  createOilDevelopment() {
     return `${this.baseUrl}/oil_development`;
   }
 
-  deleteServiceById(id) {
+  deleteOilDevelopmentById(id) {
     return `${this.baseUrl}/oil_development/${id}`;
   }
 
-  updateServiceById(id) {
+  updateOilDevelopmentById(id) {
     return `${this.baseUrl}/oil_development/${id}`;
   }
 }
 
-export const serviceUrls = new ServiceUrls();
+export const oilDevelopmentUrls = new OilDevelopmentUrls();

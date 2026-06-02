@@ -1,8 +1,8 @@
 import { ajax } from "../../modules/ajax.js";
-import { serviceUrls } from "../../modules/serviceUrls.js";
+import { oilDevelopmentUrls } from "../../modules/oilDevelopmentUrls.js";
 import { MainPage } from "../main/index.js";
 
-export class EditServicePage {
+export class EditOilDevelopmentPage {
   constructor(parent, id = null) {
     this.parent = parent;
     this.id = id;
@@ -10,15 +10,14 @@ export class EditServicePage {
 
   getHTML() {
     return `
-      <div id="edit-service-page" class="container mt-4 pb-5">
+      <div id="edit-oil-development-page" class="container mt-4 pb-5">
         <div class="d-flex justify-content-between align-items-center mb-5">
-          <h2 style="font-weight: 700; letter-spacing: -1px;">${this.id ? "Редактирование" : "Новая услуга"}</h2>
-          <button class="service-card__btn" style="color: black; border-color: rgba(0,0,0,0.2);" id="back-btn">Назад</button>
+          <h2 style="font-weight: 700; letter-spacing: -1px;">${this.id ? "Редактирование" : "Новый объект"}</h2>
         </div>
 
         <div class="row justify-content-center">
           <div class="col-md-8 shadow-sm p-4 rounded-4" style="background: white; border: 1px solid rgba(0,0,0,0.05);">
-            <form id="edit-service-form">
+            <form id="edit-oil-development-form">
               <div class="mb-4">
                 <label for="title" class="form-label fw-bold">Название объекта</label>
                 <input type="text" class="search-input" id="title" placeholder="Введите название (напр. Месторождение №1)">
@@ -41,7 +40,7 @@ export class EditServicePage {
               </div>
 
               <div class="d-grid mt-4">
-                <button type="submit" class="service-card__btn" style="background-color: var(--green-color); border-color: var(--green-color); color: white; padding: 15px;" id="save-btn">
+                <button type="submit" class="oil-development-card__btn" style="background-color: var(--green-color); border-color: var(--green-color); color: white; padding: 15px;" id="save-btn">
                   Сохранить изменения
                 </button>
               </div>
@@ -54,7 +53,7 @@ export class EditServicePage {
 
   async getData() {
     if (this.id) {
-      const data = await ajax.get(serviceUrls.getServiceById(this.id));
+      const data = await ajax.get(oilDevelopmentUrls.getOilDevelopmentById(this.id));
       if (data) {
         document.getElementById("title").value = data.title || "";
         document.getElementById("text").value = data.text || "";
@@ -76,9 +75,9 @@ export class EditServicePage {
 
     try {
       if (this.id) {
-        await ajax.patch(serviceUrls.updateServiceById(this.id), data);
+        await ajax.patch(oilDevelopmentUrls.updateOilDevelopmentById(this.id), data);
       } else {
-        await ajax.post(serviceUrls.createService(), data);
+        await ajax.post(oilDevelopmentUrls.createOilDevelopment(), data);
       }
 
       const mainPage = new MainPage(this.parent);
@@ -90,13 +89,8 @@ export class EditServicePage {
   }
 
   addListeners() {
-    document.getElementById("back-btn").addEventListener("click", () => {
-      const mainPage = new MainPage(this.parent);
-      mainPage.render();
-    });
-
     document
-      .getElementById("edit-service-form")
+      .getElementById("edit-oil-development-form")
       .addEventListener("submit", this.save.bind(this));
   }
 
